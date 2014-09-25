@@ -6,7 +6,7 @@
     android:background="#ff000000"
     tools:context=".MainActivity" >
 
-    <RelativeLayout 
+<!--     <RelativeLayout 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     <LinearLayout 
@@ -51,7 +51,7 @@
             android:layout_margin="5dp"/>
     </LinearLayout>
     
-    </RelativeLayout>
+    </RelativeLayout> -->
     <ListView
        android:id="@+id/list"
         android:layout_width="wrap_content"
