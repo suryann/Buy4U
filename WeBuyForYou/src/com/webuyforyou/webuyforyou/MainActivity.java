@@ -1,15 +1,23 @@
 package com.webuyforyou.webuyforyou;
 
+import java.util.ArrayList;
+
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
+import android.R.drawable;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
+
 
 public class MainActivity extends SherlockActivity {
   ListView list;
@@ -33,14 +41,25 @@ public class MainActivity extends SherlockActivity {
       R.drawable.ic_launcher,
       R.drawable.ic_launcher
   };
+
+  ArrayList<String> Name = new ArrayList<String>();
+  ArrayList<Bitmap> Images = new ArrayList<Bitmap>();
+  
   @Override
   protected void onCreate(Bundle savedInstanceState) {
       setTheme(SampleList.THEME); //Used for theme switching in samples
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+//    CustomList adapter = new
+//        CustomList(MainActivity.this, web, imageId);
+    
+    new Utility();
+	Name = Utility.readCalendarEvent(getApplicationContext());
+	Images.add(BitmapFactory.decodeResource(getApplicationContext().getResources(),R.drawable.ic_action_content_new));
+	
     CustomList adapter = new
-        CustomList(MainActivity.this, web, imageId);
+            CustomList(MainActivity.this, Name, Images);
     list=(ListView)findViewById(R.id.list);
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
