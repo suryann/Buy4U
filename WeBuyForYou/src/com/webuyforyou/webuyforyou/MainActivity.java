@@ -7,6 +7,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 import android.R.drawable;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -14,37 +16,21 @@ import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 
 public class MainActivity extends SherlockActivity {
   ListView list;
   String [] SelectText = {"Save", "Settings"};
-  String[] web = {
-    "Google Plus",
-      "Twitter",
-      "Windows",
-      "Bing",
-      "Itunes",
-      "Wordpress",
-      "Drupal"
-  } ;
-  
-  Integer[] imageId = {
-      R.drawable.ic_launcher,
-      R.drawable.ic_launcher,
-      R.drawable.ic_launcher,
-      R.drawable.ic_launcher,
-      R.drawable.ic_launcher,
-      R.drawable.ic_launcher,
-      R.drawable.ic_launcher
-  };
 
   ArrayList<String> Name = new ArrayList<String>();
   ArrayList<Bitmap> Images = new ArrayList<Bitmap>();
-  
+  LayoutInflater li;
+  View promptsView;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
       setTheme(SampleList.THEME); //Used for theme switching in samples
@@ -66,7 +52,8 @@ public class MainActivity extends SherlockActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
-                    Toast.makeText(MainActivity.this, "You Clicked at " +web[+ position], Toast.LENGTH_SHORT).show();
+                	startActivity(new Intent(getApplicationContext(), ProfileScreen.class));
+                    Toast.makeText(getApplicationContext(), "You Clicked at " +Utility.descriptions.get(position), Toast.LENGTH_SHORT).show();
                 }
             });
   }
@@ -100,6 +87,46 @@ public class MainActivity extends SherlockActivity {
       // complete functionality of the menu item.
 	  if (item.getTitle().equals("Settings"))
 		  startActivity(new Intent(MainActivity.this, Preference.class));
+	  else if (item.getTitle().equals("Add"))
+	  {
+		  li = LayoutInflater.from(getApplicationContext());
+		  promptsView = li.inflate(R.layout.dialogdate, null);
+
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+			// set prompts.xml to alertdialog builder
+			alertDialogBuilder.setView(promptsView);
+
+			final EditText UserInput = (EditText) promptsView
+					.findViewById(R.id.username);
+			final EditText OccasionInput = (EditText) promptsView
+					.findViewById(R.id.occasion);
+			final EditText DateInput = (EditText) promptsView
+					.findViewById(R.id.dob);
+
+			// set dialog message
+			alertDialogBuilder
+				.setCancelable(false)
+				.setPositiveButton("OK",
+				  new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog,int id) {
+					// get user input and set it to result
+					// edit text
+				    }
+				  })
+				.setNegativeButton("Cancel",
+				  new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog,int id) {
+					dialog.cancel();
+				    }
+				  });
+
+			// create alert dialog
+			AlertDialog alertDialog = alertDialogBuilder.create();
+
+			// show it
+			alertDialog.show();
+	  }
 	  else
 		  Toast.makeText(this, "Handling in onOptionsItemSelected avoided",Toast.LENGTH_SHORT).show();
 	  
