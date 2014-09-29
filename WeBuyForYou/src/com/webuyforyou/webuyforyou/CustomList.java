@@ -40,7 +40,7 @@ public class CustomList extends ArrayAdapter<String> {
 		BDate = (TextView) rowView.findViewById(R.id.dateofbirth);
 		imageView = (ImageView) rowView.findViewById(R.id.img);
 		txtTitle.setText(ContactName.get(position));
-		if(Utility.startDates.get(position).equals(""))
+		if(Utility.startDates.get(position).equals(" "))
 			BDate.setText(Utility.startDates.get(position));
 		else
 			BDate.setText(getDate(Long.parseLong(Utility.startDates.get(position))));

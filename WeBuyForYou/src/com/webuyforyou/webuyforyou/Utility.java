@@ -40,14 +40,14 @@ public class Utility {
 
 			if(cursor.getString(1)!=null)
 			nameOfEvent.add(cursor.getString(1));
-			if(cursor.getString(3)!=null)
+//			if(cursor.getString(3)!=null)
 //			startDates.add(getDate(Long.parseLong(cursor.getString(3))));
-			if(cursor.getString(4)!=null)
+//			if(cursor.getString(4)!=null)
 //			endDates.add(getDate(Long.parseLong(cursor.getString(4))));
 			if(cursor.getString(3)!=null)
 				startDates.add(cursor.getString(3));
 			else
-				startDates.add("");
+				startDates.add(" ");
 			if(cursor.getString(4)!=null)
 			endDates.add(cursor.getString(4));
 			else
@@ -55,7 +55,6 @@ public class Utility {
 			descriptions.add(cursor.getString(2));
 			CNames[i] = cursor.getString(1);
 			cursor.moveToNext();
-
 		}
 		
 		Collections.sort(startDates);
