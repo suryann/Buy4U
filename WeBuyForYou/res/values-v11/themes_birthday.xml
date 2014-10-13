@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="birthday" parent="Theme.AppCompat">
+
+        <!--  -->
+        <item name="actionBarItemBackground">@drawable/selectable_background_birthday</item>
+        <item name="popupMenuStyle">@style/PopupMenu.Birthday</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Birthday</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle.Birthday</item>
+        <item name="actionDropDownStyle">@style/DropDownNav.Birthday</item>
+        <item name="actionBarStyle">@style/ActionBar.Solid.Birthday</item>
+        <item name="actionModeBackground">@drawable/cab_background_top_birthday</item>
+        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_birthday</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Birthday</item>
+
+        <!-- Light.DarkActionBar specific -->
+        <item name="actionBarWidgetTheme">@style/Theme.Birthday.Widget</item>
+
+        <!-- Window background -->
+        <item name="android:windowBackground">@color/window_background</item>
+
+        <!--  -->
+        <item name="android:editTextBackground">@drawable/birthday_edit_text_holo_dark</item>
+        <item name="android:textColorHighlight">#99c84c4c</item>
+        <item name="android:textSelectHandleLeft">@drawable/birthday_text_select_handle_left</item>
+        <item name="android:textSelectHandleRight">@drawable/birthday_text_select_handle_right</item>
+        <item name="android:textSelectHandle">@drawable/birthday_text_select_handle_middle</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewbirthday</item>
+        <item name="android:listChoiceIndicatorMultiple">@drawable/birthday_btn_check_holo_dark</item>
+        <item name="android:buttonStyle">@style/Buttonbirthday</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonbirthday</item>
+        <item name="android:dropDownSpinnerStyle">@style/Spinnerbirthday</item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarbirthday</item>
+        <item name="android:buttonStyleToggle">@style/Togglebirthday</item>
+        <item name="android:listChoiceBackgroundIndicator">@drawable/birthday_list_selector_holo_dark</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/birthday_activated_background_holo_dark</item>
+    </style>
+
+</resources>

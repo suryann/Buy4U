@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout_root"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:padding="10dp" >
- 
+
     <TextView
         android:id="@+id/date"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="EnterName occasion and Date : "
         android:textAppearance="?android:attr/textAppearanceLarge" />
- 
+
     <EditText
         android:id="@+id/username"
+        style="@style/EditTextbirthday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name of the person" >
-            </EditText>
-        
-     <EditText
+    </EditText>
+
+    <EditText
         android:id="@+id/occasion"
+        style="@style/EditTextbirthday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="occasion" >
-     </EditText>
-         
-     <EditText
+    </EditText>
+
+    <EditText
         android:id="@+id/dob"
+        style="@style/EditTextbirthday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter date like this 1990-09-28" >
- 
     </EditText>
- 
+
 </LinearLayout>

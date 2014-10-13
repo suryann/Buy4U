@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="birthday" parent="Theme.AppCompat">
+        <item name="android:textSelectHandleLeft">@drawable/birthday_text_select_handle_left</item>
+        <item name="android:textSelectHandleRight">@drawable/birthday_text_select_handle_right</item>
+        <item name="android:textSelectHandle">@drawable/birthday_text_select_handle_middle</item>
+    </style>
+
+</resources>

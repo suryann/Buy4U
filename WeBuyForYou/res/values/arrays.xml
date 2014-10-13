@@ -1,17 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="entries_list_preference">
-        <item>10 Days</item>
-        <item>8 days</item>
-        <item>5 days</item>  
-    </string-array>
 
-    <string-array name="entryvalues_list_preference">
-        <item>alpha</item>
-        <item>beta</item>
-        <item>charlie</item>  
+    <string-array name="birthday_list_preference">
+        <item>5 Days</item>
+        <item>8 Days</item>
+        <item>10 days</item>
+        <item>15 days</item>
     </string-array>
-    
+    <string-array name="birthday_value_list_preference">
+        <item>5</item>
+        <item>8</item>
+        <item>10</item>
+        <item>15</item>
+    </string-array>
+    <string-array name="remainder_days_list_preference">
+        <item>1 day</item>
+        <item>3 days</item>
+        <item>5 days</item>
+        <item>1 week</item>
+    </string-array>
+    <string-array name="remainder_days_value_preference">
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+        <item>7</item>
+    </string-array>
+    <string-array name="remainder_time_list_preference">
+        <item>6 AM</item>
+        <item>8 AM</item>
+        <item>10 AM</item>
+        <item>11 PM</item>
+    </string-array>
+    <string-array name="remainder_time_value_preference">
+        <item>6</item>
+        <item>8</item>
+        <item>10</item>
+        <item>23</item>
+    </string-array>
     <string-array name="locations">
         <item>Home</item>
         <item>Email</item>
@@ -19,4 +44,5 @@
         <item>Browser</item>
         <item>Clock</item>
     </string-array>
+
 </resources>

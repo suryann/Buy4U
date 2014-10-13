@@ -1,8 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="months_full_name">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+    
+    
+    
     <string name="app_name">WeBuyForYou</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_details">Details</string>
+    <string name="title_birthdays">Upcoming BirthDays</string>
+    <string name="title_settings">Settings</string>
+    <string name="you_don_t_have_any_birthday_events_today_">You don\'t have any birthday events today.</string>
+    <string name="time_frequency">Time frequency</string>
+    <string name="days_frequency">Days frequency</string>
+    <string name="pref_key_remainder_days_preference">remainder_days_preference</string>
+    <string name="pref_key_remainder_time_preference">remainder_time_preference</string>
+    <string name="pref_key_remainder_birthday_interval">list_preference</string>
 
 </resources>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     File created by the Android Action Bar Style Generator
+
+     Copyright (C) 2011 The Android Open Source Project
+     Copyright (C) 2012 readyState Software Ltd
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+
+    <style name="Theme.Birthday" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_birthday</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Birthday</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Birthday</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Birthday</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Birthday</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Birthday</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_birthday</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_birthday</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Birthday</item>
+
+        <!-- Light.DarkActionBar specific -->
+        <item name="android:actionBarWidgetTheme">@style/Theme.Birthday.Widget</item>
+
+        <!-- Window background -->
+        <item name="android:windowBackground">@color/window_background</item>
+        <item name="android:editTextStyle">@style/EditTextbirthday</item>
+        <item name="android:textColorHighlight">#99c74a4a</item>
+        <item name="android:checkboxStyle">@style/CheckBoxbirthday</item>
+        <item name="android:buttonStyle">@style/Buttonbirthday</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonbirthday</item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarbirthday</item>
+        <item name="android:listViewStyle">@style/ListViewbirthday</item>
+        <item name="android:listViewWhiteStyle">@style/ListViewbirthday.White</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItembirthday</item>
+    </style>
+
+    <style name="ActionBar.Solid.Birthday" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@drawable/ab_background_textured_birthday</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_birthday</item>
+        <item name="android:backgroundSplit">@drawable/ab_background_textured_birthday</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Birthday</item>
+    </style>
+
+    <style name="ActionBar.Transparent.Birthday" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_birthday</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Birthday</item>
+    </style>
+
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Birthday.Widget" parent="@style/Theme.AppCompat">
+        <item name="android:popupMenuStyle">@style/PopupMenu.Birthday</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Birthday</item>
+    </style>
+
+</resources>

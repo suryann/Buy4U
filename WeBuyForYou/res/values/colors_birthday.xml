@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="birthday_color">#c84c4c</color>
+	
+	<color name="birthday_color_1">#c74a4a</color>
+    
+    <color name="window_background">#eceff1</color>
+</resources>

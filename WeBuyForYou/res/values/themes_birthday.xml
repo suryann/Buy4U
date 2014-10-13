@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="birthday" parent="Theme.AppCompat">
+        <item name="actionBarItemBackground">@drawable/selectable_background_birthday</item>
+        <item name="popupMenuStyle">@style/PopupMenu.Birthday</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Birthday</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle.Birthday</item>
+        <item name="actionDropDownStyle">@style/DropDownNav.Birthday</item>
+        <item name="actionBarStyle">@style/ActionBar.Solid.Birthday</item>
+        <item name="actionModeBackground">@drawable/cab_background_top_birthday</item>
+        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_birthday</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Birthday</item>
+
+        <!-- Light.DarkActionBar specific -->
+        <item name="actionBarWidgetTheme">@style/Theme.Birthday.Widget</item>
+
+        <!-- Window background -->
+        <item name="android:windowBackground">@color/window_background</item>
+        
+        
+        <item name="android:editTextStyle">@style/EditTextbirthday</item>
+        <item name="android:textColorHighlight">#99c84c4c</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewbirthday</item>
+        <item name="android:checkboxStyle">@style/CheckBoxbirthday</item>
+        <item name="android:buttonStyle">@style/Buttonbirthday</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonbirthday</item>
+        <item name="android:spinnerStyle">@style/Spinnerbirthday</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItembirthday</item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarbirthday</item>
+        <item name="android:buttonStyleToggle">@style/Togglebirthday</item>
+        <item name="android:listViewStyle">@style/ListViewbirthday</item>
+        <item name="android:listViewWhiteStyle">@style/ListViewbirthday.White</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItembirthday</item>
+    </style>
+
+</resources>

@@ -1,61 +1,29 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ff000000"
     tools:context=".MainActivity" >
 
-<!--     <RelativeLayout 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    <LinearLayout 
-        android:layout_width="wrap_content"
+    <com.webuyforyou.widget.HeaderListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
-        
-        <ImageView 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_margin="5dp"/>
-        <TextView 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textColor = "#ffffffff"
-            android:id="@+id/title"
-            android:text="Title"/>
-        
-    </LinearLayout>
-    <LinearLayout 
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_alignParentRight="true">
-        <ImageView 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_content_new"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_margin="5dp"/>
-         <ImageView 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_action_settings"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_margin="5dp"/>
-    </LinearLayout>
-    
-    </RelativeLayout> -->
-    <ListView
-       android:id="@+id/list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </ListView>
+        android:dividerHeight="1dp"
+        android:groupIndicator="@null" >
+    </com.webuyforyou.widget.HeaderListView>
 
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/import_image_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="24dp"
+        android:background="#00000000"
+        android:clickable="true"
+        android:paddingBottom="8dp"
+        android:src="@drawable/ic_action_plus" />
+
+</RelativeLayout>
