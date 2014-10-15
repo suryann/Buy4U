@@ -3,10 +3,7 @@ package com.webuyforyou.activity;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.NavUtils;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +13,9 @@ import android.widget.TextView;
 import com.webuyforyou.R;
 import com.webuyforyou.adapter.CustomListAdapter;
 import com.webuyforyou.controller.Session;
+import com.webuyforyou.dao.DBHelper;
 import com.webuyforyou.listener.DataCallbacks;
 import com.webuyforyou.model.BirthdayDataModel;
-import com.webuyforyou.preference.SharedKeyPreference;
 import com.webuyforyou.util.Utility;
 
 public class BirthdayActivity extends BaseActivity implements DataCallbacks {
@@ -39,11 +36,8 @@ public class BirthdayActivity extends BaseActivity implements DataCallbacks {
 		ReadCalendarEventsUtil calendarEventsUtil = new ReadCalendarEventsUtil(
 				this, this);
 
-		// read data from preference
-		SharedPreferences sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		String daysSetting = sharedPrefs.getString(
-				SharedKeyPreference.PREF_KEY_REMAINDER_BIRTHDAY_INTERVAL, null);
+		// read data from DB
+		String daysSetting = DBHelper.getInstance().getBithDaysFrequency();
 		int days = 0;
 		if (!TextUtils.isEmpty(daysSetting)) {
 			days = Integer.parseInt(daysSetting);
@@ -55,7 +49,7 @@ public class BirthdayActivity extends BaseActivity implements DataCallbacks {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		if (id == android.R.id.home) {
-			NavUtils.navigateUpFromSameTask(this);
+			finish();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

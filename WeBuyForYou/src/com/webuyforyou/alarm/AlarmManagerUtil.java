@@ -7,13 +7,13 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.webuyforyou.BaseApplication;
+import com.webuyforyou.dao.DBHelper;
 import com.webuyforyou.preference.SharedKeyPreference;
+import com.webuyforyou.preference.SharedPreferencesUtil;
 import com.webuyforyou.util.Constants;
 
 /**
@@ -55,41 +55,37 @@ public class AlarmManagerUtil {
 	public void setAlarm() {
 		AlarmManager alarmManager = getAlarmManager();
 		if (alarmManager != null) {
-			if (Constants.DEBUG) {
-				Log.d(TAG, "Set alarm");
-			}
 			// default values 1 day and 8 am
 			int remainderDays = 1;
-			int remainderTime = 8;
 
-			String remainderDaysString = getPreferenceData(SharedKeyPreference.PREF_KEY_REMAINDER_DAY);
-			String remainderTimeString = getPreferenceData(SharedKeyPreference.PREF_KEY_REMAINDER_TIME);
+			String remainderDaysString = DBHelper.getInstance()
+					.getDaysFrequency();
+			int hour = SharedPreferencesUtil.getInstance().getIntValue(
+					SharedKeyPreference.PREF_KEY_REMAINDER_TIME_HOUR, -1);
+			int minute = SharedPreferencesUtil.getInstance().getIntValue(
+					SharedKeyPreference.PREF_KEY_REMAINDER_TIME_MINUTE, -1);
 
 			if (!TextUtils.isEmpty(remainderDaysString)) {
 				remainderDays = Integer.parseInt(remainderDaysString);
 			}
-			if (!TextUtils.isEmpty(remainderTimeString)) {
-				remainderTime = Integer.parseInt(remainderTimeString);
+
+			if (Constants.DEBUG) {
+				Log.d(TAG, "Set alarm: remainderDays: " + remainderDays
+						+ ";hour" + hour + ";minute: " + minute);
 			}
 
 			// set hour in calendar
 			Calendar updateTime = Calendar.getInstance();
 			updateTime.setTimeZone(TimeZone.getDefault());
-			updateTime.set(Calendar.HOUR_OF_DAY, remainderTime);
+			updateTime.set(Calendar.HOUR_OF_DAY, hour == 0 ? 8 : hour);
+			updateTime.set(Calendar.MINUTE, minute == -1 ? 0 : minute);
 
 			// set alarm
 			PendingIntent pendingIntent = getPendingIntent();
 			alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-					System.currentTimeMillis(), remainderDays
+					updateTime.getTimeInMillis(), remainderDays
 							* AlarmManager.INTERVAL_DAY, pendingIntent);
 		}
-	}
-
-	private String getPreferenceData(String key) {
-		SharedPreferences sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(mContext);
-		String value = sharedPrefs.getString(key, null);
-		return value;
 	}
 
 	/**

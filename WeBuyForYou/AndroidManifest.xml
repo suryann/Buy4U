@@ -10,6 +10,7 @@
 
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name="com.webuyforyou.BaseApplication"
@@ -17,7 +18,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.Birthday" >
         <activity
-            android:name="com.webuyforyou.activity.MainActivity"
+            android:name="com.webuyforyou.activity.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -25,6 +26,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.webuyforyou.activity.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.webuyforyou.activity.Preference"
@@ -38,13 +44,29 @@
             android:name="com.webuyforyou.activity.BirthdayDetailsActivity"
             android:label="@string/title_details"
             android:screenOrientation="portrait" >
-           <meta-data
+            <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.webuyforyou.activity.MainActivity" />
         </activity>
         <activity
             android:name="com.webuyforyou.activity.BirthdayActivity"
             android:label="@string/title_birthdays"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.webuyforyou.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.webuyforyou.activity.SettingsActivity"
+            android:label="@string/title_settings"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.webuyforyou.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.webuyforyou.activity.WebViewActivity"
+            android:label="@string/title_about"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

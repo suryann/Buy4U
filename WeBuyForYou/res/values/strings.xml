@@ -19,8 +19,9 @@
     
     
     <string name="app_name">WeBuyForYou</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_add">Add</string>
+
     <string name="title_details">Details</string>
     <string name="title_birthdays">Upcoming BirthDays</string>
     <string name="title_settings">Settings</string>
@@ -30,5 +31,13 @@
     <string name="pref_key_remainder_days_preference">remainder_days_preference</string>
     <string name="pref_key_remainder_time_preference">remainder_time_preference</string>
     <string name="pref_key_remainder_birthday_interval">list_preference</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="birthday_remainder">Birthday remainder</string>
+    <string name="day_remainder">Day remainder</string>
+    <string name="time_remainder">Time remainder</string>
+    <string name="menu_about">About</string>
+    <string name="title_about">About</string>
+    
 
 </resources>

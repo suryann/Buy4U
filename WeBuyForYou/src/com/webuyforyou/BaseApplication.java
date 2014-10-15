@@ -2,6 +2,8 @@ package com.webuyforyou;
 
 import android.app.Application;
 
+import com.webuyforyou.preference.SharedPreferencesUtil;
+
 public class BaseApplication extends Application {
 
 	private static final String TAG = BaseApplication.class.getSimpleName();
@@ -12,6 +14,8 @@ public class BaseApplication extends Application {
 		super.onCreate();
 		// initializea a app instance
 		init();
+		// initialize a sharedPreference
+		SharedPreferencesUtil.init(this);
 	}
 
 	/**

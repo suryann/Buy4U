@@ -33,19 +33,6 @@
 
         <!-- Light.DarkActionBar specific -->
         <item name="actionBarWidgetTheme">@style/Theme.Birthday.Widget</item>
-        
-        <!-- Window background  -->
-        <item name="android:windowBackground">@color/window_background</item>
-        
-        <item name="android:editTextStyle">@style/EditTextbirthday</item>
-        <item name="android:textColorHighlight">#99c74a4a</item>
-        <item name="android:checkboxStyle">@style/CheckBoxbirthday</item>
-        <item name="android:buttonStyle">@style/Buttonbirthday</item>
-        <item name="android:imageButtonStyle">@style/ImageButtonbirthday</item>
-        <item name="android:progressBarStyleHorizontal">@style/ProgressBarbirthday</item>
-        <item name="android:listViewStyle">@style/ListViewbirthday</item>
-        <item name="android:listViewWhiteStyle">@style/ListViewbirthday.White</item>
-        <item name="android:spinnerItemStyle">@style/SpinnerItembirthday</item>
     </style>
 
     <style name="ActionBar.Solid.Birthday" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
