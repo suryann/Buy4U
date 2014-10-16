@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import com.webuyforyou.adapter.HomeListAdapter;
 import com.webuyforyou.alarm.AlarmManagerUtil;
 import com.webuyforyou.controller.ActivityController;
 import com.webuyforyou.controller.Session;
+import com.webuyforyou.dao.DBHelper;
 import com.webuyforyou.listener.DataCallbacks;
 import com.webuyforyou.model.BirthdayDataModel;
 import com.webuyforyou.util.Constants;
@@ -52,6 +54,7 @@ public class MainActivity extends BaseActivity implements DataCallbacks {
 
 					@Override
 					public void onClick(View v) {
+						//TODO
 					}
 				});
 
@@ -104,12 +107,23 @@ public class MainActivity extends BaseActivity implements DataCallbacks {
 		case R.id.action_about:
 			handleAboutButtonSubmit();
 			break;
+		case R.id.action_favorite:
+			handleFavoriteButtonSubmit();
+			break;
 
 		default:
 			break;
 		}
 
 		return false;
+	}
+
+	/**
+	 * Launch a favorite activity
+	 */
+	private void handleFavoriteButtonSubmit() {
+		ActivityController.INSTANCE.launchActivity(MainActivity.this,
+				FavoritesActivity.class, null);
 	}
 
 	/**

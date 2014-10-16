@@ -1,5 +1,9 @@
 package com.webuyforyou.dao;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -9,8 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.webuyforyou.BaseApplication;
-import com.webuyforyou.preference.SharedKeyPreference;
-import com.webuyforyou.preference.SharedPreferencesUtil;
+import com.webuyforyou.model.BirthdayDataModel;
 import com.webuyforyou.util.Constants;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -20,11 +23,16 @@ public class DBHelper extends SQLiteOpenHelper {
 	public static final String TABLE_NAME_REMAINDER_SETTINGS = "remainder";
 	public static final String COLUMN_NAME_BDAYS = "birthday_days";
 	public static final String COLUMN_NAME_DAYS_FREQUENCY = "days_frequency";
-	public static final String COLUMN_NAME_TIME_FREQUENCY = "time_frequency";
+	public static final String COLUMN_NAME_TIME_FREQUENCY_HOUR = "hour";
+	public static final String COLUMN_NAME_TIME_FREQUENCY_MINUTE = "minute";
 
 	public static final String TABLE_NAME_REMAINDER_SETTINGS_SAVED = "remainder_saved";
 	public static final String COLUMN_NAME_SETTING_FIRST_TIME = "first_time";
 	private static final String TAG = DBHelper.class.getSimpleName();
+	private static final String COLUMN_NAME_EVENT = "value";
+	private static final String TABLE_NAME_FAVORITE_ITEM = "favorite";
+	private static final String COLUMN_NAME_ID = "id";
+
 	private SQLiteDatabase mSqLiteDatabase;
 
 	public DBHelper(Context context) {
@@ -50,12 +58,18 @@ public class DBHelper extends SQLiteOpenHelper {
 		String statement = "CREATE TABLE " + TABLE_NAME_REMAINDER_SETTINGS
 				+ "(" + COLUMN_NAME_BDAYS + " VARCHAR,"
 				+ COLUMN_NAME_DAYS_FREQUENCY + " VARCHAR,"
-				+ COLUMN_NAME_TIME_FREQUENCY + " VARCHAR)";
+				+ COLUMN_NAME_TIME_FREQUENCY_HOUR + " VARCHAR,"
+				+ COLUMN_NAME_TIME_FREQUENCY_MINUTE + " VARCHAR)";
 		String saveStatement = "CREATE TABLE "
 				+ TABLE_NAME_REMAINDER_SETTINGS_SAVED + "("
 				+ COLUMN_NAME_SETTING_FIRST_TIME + " VARCHAR)";
+		String favoriteEventStatement = "CREATE TABLE "
+				+ TABLE_NAME_FAVORITE_ITEM + "(" + COLUMN_NAME_ID
+				+ " VARCHAR(200) NOT NULL unique, " + COLUMN_NAME_EVENT
+				+ " BLOB NOT NULL)";
 		db.execSQL(statement);
 		db.execSQL(saveStatement);
+		db.execSQL(favoriteEventStatement);
 	}
 
 	@Override
@@ -286,12 +300,9 @@ public class DBHelper extends SQLiteOpenHelper {
 	 */
 	public void setTimeFrequency(int hour, int minute) {
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(COLUMN_NAME_TIME_FREQUENCY, "" + hour + ":" + minute);
+		contentValues.put(COLUMN_NAME_TIME_FREQUENCY_HOUR, "" + hour);
+		contentValues.put(COLUMN_NAME_TIME_FREQUENCY_MINUTE, "" + minute);
 		update(TABLE_NAME_REMAINDER_SETTINGS, contentValues, null, null);
-		SharedPreferencesUtil.getInstance().setIntValue(
-				SharedKeyPreference.PREF_KEY_REMAINDER_TIME_HOUR, hour);
-		SharedPreferencesUtil.getInstance().setIntValue(
-				SharedKeyPreference.PREF_KEY_REMAINDER_TIME_MINUTE, minute);
 	}
 
 	/**
@@ -324,13 +335,111 @@ public class DBHelper extends SQLiteOpenHelper {
 	 * 
 	 * @return
 	 */
-	public String getTimeFrequency() {
-		String days = getColumnData(COLUMN_NAME_TIME_FREQUENCY,
-				TABLE_NAME_REMAINDER_SETTINGS);
+	public String getTimeFrequency(String columnName) {
+		String time = getColumnData(columnName, TABLE_NAME_REMAINDER_SETTINGS);
 		if (Constants.DEBUG) {
-			Log.d(TAG, "getTimeFrequency: " + days);
+			Log.d(TAG, "getTimeFrequency: " + time);
 		}
-		return days;
+		return time;
+	}
+
+	/**
+	 * 
+	 * @param tablename
+	 * @param id
+	 * @param columnname
+	 * @return
+	 */
+	public byte[] findByte(String tablename, String id, String columnname) {
+		final String sql = "select * from " + tablename + " where id='" + id
+				+ "'";
+		SQLiteDatabase db = null;
+		Cursor cursor = null;
+		try {
+			db = getReadableDatabase();
+			cursor = db.rawQuery(sql, null);
+			while (cursor.moveToNext()) {
+				byte[] jsonByte = cursor.getBlob(cursor
+						.getColumnIndex(columnname));
+				return jsonByte;
+			}
+		} catch (final Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * set favorite events
+	 * 
+	 * @param value
+	 */
+	public void setFavoriteEvent(BirthdayDataModel birthdayDataModel) {
+		byte[] bytes = null;
+		try {
+			bytes = Serializer.serialize(birthdayDataModel);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DBHelper.COLUMN_NAME_EVENT, bytes);
+
+		byte[] data = findByte(TABLE_NAME_FAVORITE_ITEM,
+				birthdayDataModel.getEventId(), COLUMN_NAME_EVENT);
+		if (data == null) {
+			contentValues.put(COLUMN_NAME_ID, birthdayDataModel.getEventId());
+			insert(TABLE_NAME_FAVORITE_ITEM, null, contentValues);
+		} else {
+			update(TABLE_NAME_FAVORITE_ITEM, contentValues, "id=?",
+					new String[] { birthdayDataModel.getEventId() });
+		}
+
+	}
+
+	/**
+	 * remove favorite items data
+	 * 
+	 * @param id
+	 */
+	public void removeFavorites(String id) {
+		delete(TABLE_NAME_FAVORITE_ITEM, "id=?", new String[] { id });
+	}
+
+	/**
+	 * get all favorites item
+	 * 
+	 * @return
+	 */
+	public List<BirthdayDataModel> getFavoritesItemData() {
+		List<BirthdayDataModel> favoriteItemList = new ArrayList<BirthdayDataModel>();
+		String sqlQuery = "SELECT * " + " FROM " + TABLE_NAME_FAVORITE_ITEM;
+		Cursor cursor = null;
+		try {
+			cursor = rawQuery(sqlQuery, null);
+			if (cursor.moveToFirst()) {
+				do {
+					byte[] bytes = cursor.getBlob(cursor
+							.getColumnIndex(COLUMN_NAME_EVENT));
+					BirthdayDataModel section = (BirthdayDataModel) Serializer
+							.deserialize(bytes);
+					favoriteItemList.add(section);
+				} while (cursor.moveToNext());
+			}
+
+		} catch (final Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+			}
+		}
+
+		return favoriteItemList;
 	}
 
 }

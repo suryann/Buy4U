@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +19,6 @@ import com.webuyforyou.R;
 import com.webuyforyou.alarm.AlarmManagerUtil;
 import com.webuyforyou.controller.ActivityController;
 import com.webuyforyou.dao.DBHelper;
-import com.webuyforyou.preference.SharedKeyPreference;
 import com.webuyforyou.preference.SharedPreferencesUtil;
 import com.webuyforyou.util.Constants;
 
@@ -58,51 +58,61 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 
 		}
 
-		// set value
-		SharedPreferencesUtil preferencesUtil = SharedPreferencesUtil
-				.getInstance();
+		// hour
+		String hourString = DBHelper.getInstance().getTimeFrequency(
+				DBHelper.COLUMN_NAME_TIME_FREQUENCY_HOUR);
+		int hour = 0;
+		if (!TextUtils.isEmpty(hourString)) {
+			hour = Integer.parseInt(hourString);
+		}
 
-		int daySpinnerPos = preferencesUtil.getIntValue(
-				SharedKeyPreference.PREF_KEY_DAY_SPINNER_POS, -1);
+		// minute
+		String minuteString = DBHelper.getInstance().getTimeFrequency(
+				DBHelper.COLUMN_NAME_TIME_FREQUENCY_MINUTE);
+		int minute = 0;
+		if (!TextUtils.isEmpty(minuteString)) {
+			minute = Integer.parseInt(minuteString);
+		}
+		// set time
+		setTime(hour <= 0 ? 8 : hour, minute);
 
-		int birthdaySpinnerPos = preferencesUtil.getIntValue(
-				SharedKeyPreference.PREF_KEY_BDAY_SPINNER_POS, -1);
+		// remainder daySpinner
+		String daysFreq = DBHelper.getInstance().getDaysFrequency();
+		if (!TextUtils.isEmpty(daysFreq)) {
+			String[] daySpinnerStrings = getResources().getStringArray(
+					R.array.remainder_days_list_preference);
+			for (int i = 0; i < daySpinnerStrings.length; i++) {
+				if (daySpinnerStrings[i].contains(daysFreq)) {
+					daysSpinner.setSelection(i);
+					break;
+				} else if (daysFreq.contains("7")) {
+					daysSpinner.setSelection(daySpinnerStrings.length - 1);
+				}
+			}
+		} else {
+			daysSpinner.setSelection(0);
+		}
 
-		int hour = preferencesUtil.getIntValue(
-				SharedKeyPreference.PREF_KEY_REMAINDER_TIME_HOUR, -1);
-
-		int minute = preferencesUtil.getIntValue(
-				SharedKeyPreference.PREF_KEY_REMAINDER_TIME_MINUTE, -1);
-
-		setTime(hour, minute);
-
-		if (daySpinnerPos != -1)
-			daysSpinner.setSelection(daySpinnerPos);
-		if (birthdaySpinnerPos != -1)
-			bithdaySpinner.setSelection(birthdaySpinnerPos);
-
-		// String timeString = "";
-		// if (hour != -1) {
-		// timeString = "" + hour;
-		// }
-		//
-		// if (minute != -1) {
-		// timeString += ":" + minute;
-		// } else {
-		// timeString += ":" + "00";
-		// }
-		// if (!TextUtils.isEmpty(timeString)) {
-		// mTimeSpinnerTextView.setText(timeString);
-		// }
+		// remainder bithdaySpinner
+		String birthdayFreq = DBHelper.getInstance().getBithDaysFrequency();
+		if (!TextUtils.isEmpty(birthdayFreq)) {
+			String[] birthdaySpinnerStrings = getResources().getStringArray(
+					R.array.birthday_list_preference);
+			for (int i = 0; i < birthdaySpinnerStrings.length; i++) {
+				if (birthdaySpinnerStrings[i].contains(birthdayFreq)) {
+					bithdaySpinner.setSelection(i);
+					break;
+				}
+			}
+		} else {
+			bithdaySpinner.setSelection(0);
+		}
 
 		daysSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
-				SharedPreferencesUtil.getInstance().setIntValue(
-						SharedKeyPreference.PREF_KEY_DAY_SPINNER_POS, position);
-
 				String value = (String) parent.getItemAtPosition(position);
 				if (Constants.DEBUG) {
 					Log.d(TAG, "Position: " + value);
@@ -120,10 +130,6 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
-				SharedPreferencesUtil.getInstance()
-						.setIntValue(
-								SharedKeyPreference.PREF_KEY_BDAY_SPINNER_POS,
-								position);
 				String value = (String) parent.getItemAtPosition(position);
 				if (Constants.DEBUG) {
 					Log.d(TAG, "Position: " + value);

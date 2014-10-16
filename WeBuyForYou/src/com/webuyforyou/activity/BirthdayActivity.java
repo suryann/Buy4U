@@ -1,5 +1,6 @@
 package com.webuyforyou.activity;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -60,15 +61,28 @@ public class BirthdayActivity extends BaseActivity implements DataCallbacks {
 		if (isFinishing()) {
 			return;
 		}
+		List<BirthdayDataModel> favoriteBirthdayDataModel = new ArrayList<BirthdayDataModel>();
 		if (birthdayDataModels != null && birthdayDataModels.size() > 0) {
-			LinkedHashMap<String, List<BirthdayDataModel>> map = (LinkedHashMap<String, List<BirthdayDataModel>>) Session
-					.getInstance().getSortedCalendarEventData(
-							birthdayDataModels);
-			CustomListAdapter birthDayListAdapter = new CustomListAdapter(this,
-					(LinkedHashMap<String, List<BirthdayDataModel>>) map);
-			listView.setAdapter(birthDayListAdapter);
-			listView.setVisibility(View.VISIBLE);
-			mHintTextView.setVisibility(View.GONE);
+			for (BirthdayDataModel birthdayDataModel : birthdayDataModels) {
+				if (birthdayDataModel.isFavorite()) {
+					favoriteBirthdayDataModel.add(birthdayDataModel);
+				}
+			}
+			if (favoriteBirthdayDataModel != null
+					&& favoriteBirthdayDataModel.size() > 0) {
+				LinkedHashMap<String, List<BirthdayDataModel>> map = (LinkedHashMap<String, List<BirthdayDataModel>>) Session
+						.getInstance().getSortedCalendarEventData(
+								favoriteBirthdayDataModel);
+				CustomListAdapter birthDayListAdapter = new CustomListAdapter(
+						this,
+						(LinkedHashMap<String, List<BirthdayDataModel>>) map);
+				listView.setAdapter(birthDayListAdapter);
+				listView.setVisibility(View.VISIBLE);
+				mHintTextView.setVisibility(View.GONE);
+			} else {
+				listView.setVisibility(View.GONE);
+				mHintTextView.setVisibility(View.VISIBLE);
+			}
 		} else {
 			listView.setVisibility(View.GONE);
 			mHintTextView.setVisibility(View.VISIBLE);

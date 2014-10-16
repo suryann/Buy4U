@@ -10,14 +10,15 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.webuyforyou.R;
-import com.webuyforyou.activity.BirthdayActivity;
 import com.webuyforyou.activity.BirthdayDetailsActivity;
+import com.webuyforyou.dao.DBHelper;
 import com.webuyforyou.model.BirthdayDataModel;
 import com.webuyforyou.util.Constants;
 import com.webuyforyou.util.Utility;
@@ -57,7 +58,7 @@ public class HomeListAdapter extends SectionAdapter {
 	}
 
 	@Override
-	public View getRowView(int section, int row, View convertView,
+	public View getRowView(final int section, final int row, View convertView,
 			ViewGroup parent) {
 		ViewHolder holder = null;
 		if (convertView == null) {
@@ -71,6 +72,8 @@ public class HomeListAdapter extends SectionAdapter {
 			holder.dateTextView = (TextView) convertView
 					.findViewById(R.id.dateofbirth);
 			holder.imageView = (ImageView) convertView.findViewById(R.id.img);
+			holder.starImageView = (ImageView) convertView
+					.findViewById(R.id.star_imageview);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -86,9 +89,43 @@ public class HomeListAdapter extends SectionAdapter {
 				holder.dateTextView.setText(Utility.getDate(milliseconds,
 						birthdayDataModel.getTimezone()));
 			}
-			// holder.nameTextView.setText(birthdayDataModel.getTitle());
+			if (birthdayDataModel.isFavorite()) {
+				holder.starImageView
+						.setImageResource(R.drawable.ic_stat_star_yellow);
+			} else {
+				holder.starImageView.setImageResource(R.drawable.ic_stat_star);
+			}
 		}
+		//
+		holder.starImageView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				handleStarButtonClickEvent(section, row);
+			}
+		});
 		return convertView;
+	}
+
+	/**
+	 * 
+	 * @param section
+	 * @param row
+	 */
+	protected void handleStarButtonClickEvent(int section, int row) {
+		BirthdayDataModel birthdayDataModel = (BirthdayDataModel) getRowItem(
+				section, row);
+		if (birthdayDataModel != null) {
+			if (!birthdayDataModel.isFavorite()) {
+				birthdayDataModel.setFavorite(true);
+				DBHelper.getInstance().setFavoriteEvent(birthdayDataModel);
+			} else {
+				birthdayDataModel.setFavorite(false);
+				DBHelper.getInstance().removeFavorites(
+						birthdayDataModel.getEventId());
+			}
+		}
+		notifyDataSetChanged();
 	}
 
 	@Override
@@ -149,6 +186,7 @@ public class HomeListAdapter extends SectionAdapter {
 	}
 
 	public static class ViewHolder {
+		public ImageView starImageView;
 		public ImageView imageView;
 		public TextView dateTextView;
 		public TextView nameTextView;

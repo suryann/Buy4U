@@ -12,8 +12,6 @@ import android.util.Log;
 
 import com.webuyforyou.BaseApplication;
 import com.webuyforyou.dao.DBHelper;
-import com.webuyforyou.preference.SharedKeyPreference;
-import com.webuyforyou.preference.SharedPreferencesUtil;
 import com.webuyforyou.util.Constants;
 
 /**
@@ -60,10 +58,21 @@ public class AlarmManagerUtil {
 
 			String remainderDaysString = DBHelper.getInstance()
 					.getDaysFrequency();
-			int hour = SharedPreferencesUtil.getInstance().getIntValue(
-					SharedKeyPreference.PREF_KEY_REMAINDER_TIME_HOUR, -1);
-			int minute = SharedPreferencesUtil.getInstance().getIntValue(
-					SharedKeyPreference.PREF_KEY_REMAINDER_TIME_MINUTE, -1);
+			// hour
+			String hourString = DBHelper.getInstance().getTimeFrequency(
+					DBHelper.COLUMN_NAME_TIME_FREQUENCY_HOUR);
+			int hour = 0;
+			if (!TextUtils.isEmpty(hourString)) {
+				hour = Integer.parseInt(hourString);
+			}
+
+			// minute
+			String minuteString = DBHelper.getInstance().getTimeFrequency(
+					DBHelper.COLUMN_NAME_TIME_FREQUENCY_MINUTE);
+			int minute = 0;
+			if (!TextUtils.isEmpty(minuteString)) {
+				minute = Integer.parseInt(minuteString);
+			}
 
 			if (!TextUtils.isEmpty(remainderDaysString)) {
 				remainderDays = Integer.parseInt(remainderDaysString);
@@ -77,8 +86,8 @@ public class AlarmManagerUtil {
 			// set hour in calendar
 			Calendar updateTime = Calendar.getInstance();
 			updateTime.setTimeZone(TimeZone.getDefault());
-			updateTime.set(Calendar.HOUR_OF_DAY, hour == 0 ? 8 : hour);
-			updateTime.set(Calendar.MINUTE, minute == -1 ? 0 : minute);
+			updateTime.set(Calendar.HOUR_OF_DAY, hour <= 0 ? 8 : hour);
+			updateTime.set(Calendar.MINUTE, minute <= 0 ? 0 : minute);
 
 			// set alarm
 			PendingIntent pendingIntent = getPendingIntent();

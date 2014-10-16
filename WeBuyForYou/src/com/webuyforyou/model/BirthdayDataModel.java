@@ -8,8 +8,13 @@ import com.webuyforyou.BaseApplication;
 import com.webuyforyou.R;
 import com.webuyforyou.util.Utility;
 
-public class BirthdayDataModel implements Serializable{
+public class BirthdayDataModel implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private boolean isFavorite;
 	private String title;
 	private String startDate;
 	private String imageUrl;
@@ -18,6 +23,7 @@ public class BirthdayDataModel implements Serializable{
 	private String timezone;
 	private String eventLocation;
 	private String month;
+	private String eventId;
 	private int monthCount;
 	private String[] monthsFullName = BaseApplication.getApplication()
 			.getResources().getStringArray(R.array.months_full_name);
@@ -159,6 +165,22 @@ public class BirthdayDataModel implements Serializable{
 
 	public void setMonthCount(int monthCount) {
 		this.monthCount = monthCount;
+	}
+
+	public boolean isFavorite() {
+		return isFavorite;
+	}
+
+	public void setFavorite(boolean isFavorite) {
+		this.isFavorite = isFavorite;
+	}
+
+	public String getEventId() {
+		return eventId;
+	}
+
+	public void setEventId(String eventId) {
+		this.eventId = eventId;
 	}
 
 }

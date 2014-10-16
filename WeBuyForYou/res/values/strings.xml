@@ -38,6 +38,9 @@
     <string name="time_remainder">Time remainder</string>
     <string name="menu_about">About</string>
     <string name="title_about">About</string>
+    <string name="menu_favorite">Favorites</string>
+    <string name="you_don_t_have_any_favorites_events_">You don\'t have any favorite events.</string>
+    <string name="title_favorites">Favorites</string>
     
 
 </resources>
