@@ -8,14 +8,14 @@ import android.widget.Toast;
 
 public class SendEmail {
     /** Called when the activity is first created. */
-    protected void sendMail(String [] toArr) {
+    protected void sendMail(String Body) {
     	
     	Mail m = new Mail("webuyforyou7@gmail.com", "yaminivb4u"); 
-//        String[] toArr = {"suryann@gmail.com","kannappan88@gmail.com"}; 
+        String[] toArr = {"suryann@gmail.com","kannappan88@gmail.com"}; 
         m.setTo(toArr); 
         m.setFrom("webuyforyou7@gmail.com");
         m.setSubject("user mail ID and Phone number"); 
-        m.setBody("Content of Email body"); 
+        m.setBody(Body); 
         try { 
           if(m.send()) { 
             Toast.makeText(BaseApplication.getApplication(), "Email was sent successfully.", Toast.LENGTH_LONG).show(); 
