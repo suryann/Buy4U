@@ -89,51 +89,58 @@ public class ReadCalendarEventsUtil {
 			cursor.moveToFirst();
 			// fetching calendars name
 			String CNames[] = new String[cursor.getCount()];
+			String EventName;
 
 			for (int i = 0; i < CNames.length; i++) {
 				BirthdayDataModel birthdayDataModel = new BirthdayDataModel();
+				
 				// Title
 				if (cursor.getString(1) != null) {
 					if (Constants.DEBUG) {
 						Log.d(TAG, "Name: " + cursor.getString(1));
 					}
-					birthdayDataModel.setTitle(cursor.getString(1));
-				}
-				// start date
-				if (cursor.getString(3) != null) {
-					if (Constants.DEBUG) {
-						Log.d(TAG, "STDate: " + cursor.getString(3));
+					EventName = cursor.getString(1);
+					if(EventName.toLowerCase().contains("birthday"))
+					{
+						birthdayDataModel.setTitle(cursor.getString(1));
+						
+						// start date
+						if (cursor.getString(3) != null) {
+							if (Constants.DEBUG) {
+								Log.d(TAG, "STDate: " + cursor.getString(3));
+							}
+							birthdayDataModel.setStartDate(cursor.getString(3));
+						}
+						
+						// end date
+						if (cursor.getString(4) != null) {
+							if (Constants.DEBUG) {
+								Log.d(TAG, "End date: " + cursor.getString(4));
+							}
+							birthdayDataModel.setEndDate(cursor.getString(4));
+						}
+		
+						// description
+						if (Constants.DEBUG) {
+							Log.d(TAG, "descriptions: " + cursor.getString(2));
+						}
+		
+						birthdayDataModel.setDescription(cursor.getString(2));
+		
+						// time zone
+						if (Constants.DEBUG) {
+							Log.d(TAG, "TimeZone: " + cursor.getString(6));
+						}
+						birthdayDataModel.setTimezone(cursor.getString(6));
+		
+						// add to list
+						birthdayDataModels.add(birthdayDataModel);
+		
+						CNames[i] = cursor.getString(1);
+						cursor.moveToNext();
 					}
-					birthdayDataModel.setStartDate(cursor.getString(3));
 				}
-				// end date
-				if (cursor.getString(4) != null) {
-					if (Constants.DEBUG) {
-						Log.d(TAG, "End date: " + cursor.getString(4));
-					}
-					birthdayDataModel.setEndDate(cursor.getString(4));
-				}
-
-				// description
-				if (Constants.DEBUG) {
-					Log.d(TAG, "descriptions: " + cursor.getString(2));
-				}
-
-				birthdayDataModel.setDescription(cursor.getString(2));
-
-				// time zone
-				if (Constants.DEBUG) {
-					Log.d(TAG, "TimeZone: " + cursor.getString(6));
-				}
-				birthdayDataModel.setTimezone(cursor.getString(6));
-
-				// add to list
-				birthdayDataModels.add(birthdayDataModel);
-
-				CNames[i] = cursor.getString(1);
-				cursor.moveToNext();
 			}
-
 			// Collections.sort(startDates);
 
 			cursor.close();

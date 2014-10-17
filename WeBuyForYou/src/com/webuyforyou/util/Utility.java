@@ -14,7 +14,7 @@ import com.webuyforyou.R;
 
 public class Utility {
 	private static final String ASIA_CALCUTTA = "Asia/Calcutta";
-	public static final String DEFAULT_DATE_FORMATTER = "yyyy-MM-dd @ hh:mm a";
+	public static final String DEFAULT_DATE_FORMATTER = "dd-MM-yy";
 	private static final String UTC_TIMEZONE_ID = "GMT/UTC";
 	public static final String CONVERT_DATE_FORMAT = "EEEE, MMM dd";
 
