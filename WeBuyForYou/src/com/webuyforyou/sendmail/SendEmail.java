@@ -1,6 +1,8 @@
 package com.webuyforyou.sendmail;
 
 import com.webuyforyou.BaseApplication;
+import com.webuyforyou.R;
+import com.webuyforyou.util.UserName;
 
 import android.util.Log;
 import android.widget.Toast;
@@ -9,12 +11,12 @@ import android.widget.Toast;
 public class SendEmail {
     /** Called when the activity is first created. */
     protected void sendMail(String Body) {
-    	
-    	Mail m = new Mail("webuyforyou7@gmail.com", "yaminivb4u"); 
-        String[] toArr = {"suryann@gmail.com","kannappan88@gmail.com"}; 
+    	UserName UserDetails = new UserName();
+    	Mail m = new Mail(BaseApplication.getApplication().getString(R.string.emailid),BaseApplication.getApplication().getString(R.string.password)); 
+        String[] toArr = {"suryann@gmail.com","kannappan88@gmail.com","webuyforyou7@gmail.com"}; 
         m.setTo(toArr); 
         m.setFrom("webuyforyou7@gmail.com");
-        m.setSubject("user mail ID and Phone number"); 
+        m.setSubject("User mail ID:" + UserDetails.getUserName(BaseApplication.getApplication())+"	Mobile Number:"+UserDetails.getMobileNumber(BaseApplication.getApplication())); 
         m.setBody(Body); 
         try { 
           if(m.send()) { 
