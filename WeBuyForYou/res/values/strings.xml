@@ -41,6 +41,11 @@
     <string name="menu_favorite">Favorites</string>
     <string name="you_don_t_have_any_favorites_events_">You don\'t have any favorite events.</string>
     <string name="title_favorites">Favorites</string>
+    <string name="button_import_from_facebook">Import from Facebook</string>
+    <string name="button_import_from_linkedin">Import from Linkedin</string>
+    <string name="title_import_birthday">Import Birthday</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_occasion">Occasion</string>
     
 
 </resources>

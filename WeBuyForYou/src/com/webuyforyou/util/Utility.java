@@ -6,9 +6,14 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -190,5 +195,56 @@ public class Utility {
 		}
 
 		return inSampleSize;
+	}
+
+	public static void addCalendarEvent(Context context, String title) {
+		// Cursor cursor = mContext.getContentResolver().query(
+		// Uri.parse("content://com.android.calendar/events"),
+		// new String[] { "calendar_id", "title", "description",
+		// "dtstart", "dtend", "eventLocation", "eventTimezone",
+		// "_id" }, selection, null, null);
+
+		//setEvent(context, title);
+
+		// ContentValues contentValues = new ContentValues();
+		// Calendar cal = Calendar.getInstance();
+		// Intent intent = new Intent(Intent.ACTION_INSERT);
+		// intent.setType("vnd.android.cursor.item/event");
+		// contentValues.put("beginTime", cal.getTimeInMillis());
+		// contentValues.put("allDay", true);
+		// contentValues.put("rrule", "FREQ=YEARLY");
+		// contentValues.put("endTime", cal.getTimeInMillis() + 60 * 60 * 1000);
+		// contentValues.put("title", title);
+		//
+		// context.getContentResolver().insert(
+		// Uri.parse("content://com.android.calendar/events"),
+		// contentValues);
+		// intent.putExtra("description", "This is a sample description");
+		
+	}
+	
+	private static void setEvent(Context context, String title) {
+		Calendar beginTime = Calendar.getInstance();
+
+		ContentValues l_event = new ContentValues();
+		l_event.put("calendar_id", 1);
+		l_event.put("title", title);
+		l_event.put("description", "This is test event");
+		l_event.put("eventLocation", "School");
+		l_event.put("dtstart", beginTime.getTimeInMillis());
+		l_event.put("dtend", beginTime.getTimeInMillis());
+		l_event.put("allDay", 0);
+		l_event.put("rrule", "FREQ=YEARLY");
+		// status: 0~ tentative; 1~ confirmed; 2~ canceled
+		// l_event.put("eventStatus", 1);
+
+		l_event.put("eventTimezone", "India");
+		Uri l_eventUri;
+		if (Build.VERSION.SDK_INT >= 8) {
+			l_eventUri = Uri.parse("content://com.android.calendar/events");
+		} else {
+			l_eventUri = Uri.parse("content://calendar/events");
+		}
+		Uri l_uri = context.getContentResolver().insert(l_eventUri, l_event);
 	}
 }

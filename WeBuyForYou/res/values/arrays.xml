@@ -45,4 +45,11 @@
         <item>Clock</item>
     </string-array>
 
+    <!--  -->
+    <string-array name="events">
+        <item>Anniversary</item>
+        <item>Birthday</item>
+        <item>Wedding</item>
+    </string-array>
+
 </resources>

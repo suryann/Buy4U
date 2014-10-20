@@ -89,6 +89,11 @@ public class ReadCalendarEventsUtil {
 			String CNames[] = new String[cursor.getCount()];
 			String eventName;
 			for (int i = 0; i < CNames.length; i++) {
+				
+				if (Constants.DEBUG) {
+					Log.d(TAG, "Calendar Id: " + cursor.getString(0));
+				}
+				
 				BirthdayDataModel birthdayDataModel = new BirthdayDataModel();
 				// Title
 				if (cursor.getString(1) != null) {

@@ -11,34 +11,40 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.webuyforyou.R;
 import com.webuyforyou.adapter.HomeListAdapter;
 import com.webuyforyou.alarm.AlarmManagerUtil;
 import com.webuyforyou.controller.ActivityController;
 import com.webuyforyou.controller.Session;
-import com.webuyforyou.dao.DBHelper;
 import com.webuyforyou.listener.DataCallbacks;
 import com.webuyforyou.model.BirthdayDataModel;
 import com.webuyforyou.util.Constants;
+import com.webuyforyou.util.Utility;
 import com.webuyforyou.widget.HeaderListView;
 
 public class MainActivity extends BaseActivity implements DataCallbacks {
 	private static final int SETTINGS_RESULT = 111;
 	private static final String TAG = MainActivity.class.getSimpleName();
+	private static final int REQUEST_CODE = 10;
 	private HeaderListView listView;
 	private ArrayList<String> Name = new ArrayList<String>();
 	private ArrayList<Bitmap> Images = new ArrayList<Bitmap>();
 	private LayoutInflater li;
 	private View promptsView;
 	private Map<String, List<BirthdayDataModel>> map;
+	protected String mEvent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +60,10 @@ public class MainActivity extends BaseActivity implements DataCallbacks {
 
 					@Override
 					public void onClick(View v) {
-						//TODO
+
+						ActivityController.INSTANCE.launchActivity(
+								MainActivity.this,
+								FriendPickerSampleActivity.class, null);
 					}
 				});
 
@@ -102,7 +111,10 @@ public class MainActivity extends BaseActivity implements DataCallbacks {
 					SettingsActivity.class, null);
 			break;
 		case R.id.action_add:
-			handleAddEvent();
+			Intent intent = new Intent(Intent.ACTION_EDIT);
+			intent.setType("vnd.android.cursor.item/event");
+			startActivityForResult(intent, REQUEST_CODE);
+			// handleAddEvent();
 			break;
 		case R.id.action_about:
 			handleAboutButtonSubmit();
@@ -145,16 +157,31 @@ public class MainActivity extends BaseActivity implements DataCallbacks {
 
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-		alertDialogBuilder.setTitle("Add Birthdays");
+		alertDialogBuilder.setTitle("Add new event");
 		// set prompts.xml to alertdialog builder
 		alertDialogBuilder.setView(promptsView);
 
-		final EditText UserInput = (EditText) promptsView
-				.findViewById(R.id.username);
-		final EditText OccasionInput = (EditText) promptsView
-				.findViewById(R.id.occasion);
-		final EditText DateInput = (EditText) promptsView
+		final EditText nameEditText = (EditText) promptsView
+				.findViewById(R.id.name_edittext);
+		final TextView dateTextView = (TextView) promptsView
 				.findViewById(R.id.dob);
+		final Spinner occasionEditText = (Spinner) promptsView
+				.findViewById(R.id.occasion);
+		occasionEditText
+				.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+					@Override
+					public void onItemSelected(AdapterView<?> parent,
+							View view, int position, long id) {
+						mEvent = (String) occasionEditText
+								.getItemAtPosition(position);
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> parent) {
+
+					}
+				});
 
 		// set dialog message
 		alertDialogBuilder
@@ -163,12 +190,19 @@ public class MainActivity extends BaseActivity implements DataCallbacks {
 					public void onClick(DialogInterface dialog, int id) {
 						// get user input and set it to result
 						// edit text
+						String title = nameEditText.getText().toString();
+						String eventOccassion = mEvent;
+						String date = null;
+
+						if (validateData(title, eventOccassion, date)) {
+							handleAddEventSubmit(title, eventOccassion, date);
+						}
 					}
 				})
 				.setNegativeButton("Cancel",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
+								dialog.dismiss();
 							}
 						});
 
@@ -179,10 +213,48 @@ public class MainActivity extends BaseActivity implements DataCallbacks {
 		alertDialog.show();
 	}
 
+	protected boolean validateData(String title, String eventOccassion,
+			String date) {
+		String message = null;
+		boolean isValid = true;
+		if (TextUtils.isEmpty(title)) {
+			isValid = false;
+			message = "Title should not be empty";
+		}
+		if (TextUtils.isEmpty(eventOccassion)) {
+			isValid = false;
+		}
+		if (TextUtils.isEmpty(date)) {
+			// FIXME set false later
+			isValid = true;
+			message = "Date should not be empty";
+		}
+		if (!isValid) {
+			showToastMessage(this, message);
+		}
+		return isValid;
+	}
+
+	/**
+	 * @param date
+	 * @param eventOccassion
+	 * @param title
+	 * 
+	 */
+	protected void handleAddEventSubmit(String title, String eventOccassion,
+			String date) {
+		Utility.addCalendarEvent(this, title);
+
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == SETTINGS_RESULT) {
+		if (requestCode == REQUEST_CODE) {
+			// read calendar events
+			ReadCalendarEventsUtil calendarEventsUtil = new ReadCalendarEventsUtil(
+					this, this);
+			calendarEventsUtil.readCalendarEvents(null);
 		}
 	}
 
