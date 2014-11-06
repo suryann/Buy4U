@@ -27,6 +27,10 @@ import com.facebook.Settings;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphObject;
 import com.webuyforyou.R;
+import com.webuyforyou.linkedin.LinkedInListActivity;
+import com.webuyforyou.linkedin.LinkedInOAuthActivity;
+import com.webuyforyou.preference.SharedKeyPreference;
+import com.webuyforyou.preference.SharedPreferencesUtil;
 
 public class ImportBirthdayActivity extends BaseActivity {
 
@@ -40,11 +44,14 @@ public class ImportBirthdayActivity extends BaseActivity {
 	};
 	private static final int PICK_FRIENDS_ACTIVITY = 100;
 	protected static final String TAG = null;
+	private static final int LINKEDIN_OAUTH_RESULT_CODE = 400;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_import_birthday_layout);
+
+		isShowActionBarHomeButton(true);
 
 		findViewById(R.id.facebook_button).setOnClickListener(
 				new OnClickListener() {
@@ -52,6 +59,15 @@ public class ImportBirthdayActivity extends BaseActivity {
 					@Override
 					public void onClick(View v) {
 						handleImportFacebook();
+					}
+				});
+
+		findViewById(R.id.linkedin_button).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						handleImportLinkedin();
 					}
 				});
 
@@ -69,6 +85,30 @@ public class ImportBirthdayActivity extends BaseActivity {
 
 	}
 
+	protected void handleImportLinkedin() {
+		if (isLinkedInEnabled()) {
+			Intent intent = new Intent(this, LinkedInListActivity.class);
+			startActivity(intent);
+		} else {
+			Intent intent = new Intent(this, LinkedInOAuthActivity.class);
+			startActivityForResult(intent, LINKEDIN_OAUTH_RESULT_CODE);
+		}
+	}
+
+	// Checks if twitter is enabled
+	private boolean isLinkedInEnabled() {
+		SharedPreferencesUtil preferencesUtil = SharedPreferencesUtil
+				.getInstance();
+		String linkedInToken = preferencesUtil.getStringValue(
+				SharedKeyPreference.PREF_KEY_LINKEDIN_ACCESS_TOKEN, null);
+		String linkedInSecret = preferencesUtil.getStringValue(
+				SharedKeyPreference.PREF_KEY_LINKEDIN_ACCESS_SECRET, null);
+		if (linkedInToken != null && linkedInSecret != null)
+			return true;
+		else
+			return false;
+	}
+
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -78,6 +118,28 @@ public class ImportBirthdayActivity extends BaseActivity {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+
+		if (resultCode == RESULT_OK
+				&& requestCode == LINKEDIN_OAUTH_RESULT_CODE) {
+			String access_token = data.getStringExtra("access_token");
+			String access_secret = data.getStringExtra("access_secret");
+
+			// Store the tokens in preferences for further use
+			SharedPreferencesUtil preferencesUtil = SharedPreferencesUtil
+					.getInstance();
+			preferencesUtil.setStringValue(
+					SharedKeyPreference.PREF_KEY_LINKEDIN_ACCESS_TOKEN,
+					access_token);
+			preferencesUtil.setStringValue(
+					SharedKeyPreference.PREF_KEY_LINKEDIN_ACCESS_SECRET,
+					access_secret);
+
+			// Start activity
+			Intent intent = new Intent(this, LinkedInListActivity.class);
+			startActivity(intent);
+
+		}
+
 		// Session.getActiveSession().onActivityResult(this, requestCode,
 		// resultCode, data);
 		lifecycleHelper.onActivityResult(requestCode, resultCode, data);

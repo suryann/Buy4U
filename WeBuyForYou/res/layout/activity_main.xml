@@ -9,7 +9,8 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:dividerHeight="1dp"
+        android:dividerHeight="8dp"
+        android:divider="@android:color/transparent"
         android:groupIndicator="@null" >
     </com.webuyforyou.widget.HeaderListView>
 

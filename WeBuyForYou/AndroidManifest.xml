@@ -12,8 +12,8 @@
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name="com.webuyforyou.BaseApplication"
         android:icon="@drawable/ic_launcher"
@@ -109,6 +109,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.webuyforyou.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.webuyforyou.linkedin.LinkedInListActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.webuyforyou.linkedin.LinkedInOAuthActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.facebook.LoginActivity"

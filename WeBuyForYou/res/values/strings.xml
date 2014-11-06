@@ -33,8 +33,8 @@
     <string name="pref_key_remainder_birthday_interval">list_preference</string>
     <string name="btn_save">Save</string>
     <string name="btn_cancel">Cancel</string>
-    <string name="birthday_remainder">Birthday remainder</string>
-    <string name="day_remainder">Day remainder</string>
+    <string name="birthday_remainder">Event remainder</string>
+    <string name="day_remainder">Remaind me prior</string>
     <string name="time_remainder">Time remainder</string>
     <string name="menu_about">About</string>
     <string name="title_about">About</string>

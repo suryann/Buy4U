@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity implements DataCallbacks {
 
 						ActivityController.INSTANCE.launchActivity(
 								MainActivity.this,
-								FriendPickerSampleActivity.class, null);
+								ImportBirthdayActivity.class, null);
 					}
 				});
 

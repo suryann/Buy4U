@@ -7,9 +7,9 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,7 +29,8 @@ public class FavoriteListAdapter extends BaseAdapter {
 		public TextView nameTextView;
 		public TextView sectionHeaderTextView;
 		public TextView textView;
-		public ImageView starImageView;
+		// public ImageView starImageView;
+		public CheckBox checkboxView;
 	}
 
 	public FavoriteListAdapter(Context context,
@@ -67,12 +68,16 @@ public class FavoriteListAdapter extends BaseAdapter {
 			holder.dateTextView = (TextView) convertView
 					.findViewById(R.id.dateofbirth);
 			holder.imageView = (ImageView) convertView.findViewById(R.id.img);
-			holder.starImageView = (ImageView) convertView
-					.findViewById(R.id.star_imageview);
+			// holder.starImageView = (ImageView) convertView
+			// .findViewById(R.id.star_imageview);
+			holder.checkboxView = (CheckBox) convertView
+					.findViewById(R.id.checkbox_view);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
+
+		holder.checkboxView.setVisibility(View.GONE);
 
 		BirthdayDataModel birthdayDataModel = (BirthdayDataModel) getItem(position);
 		if (birthdayDataModel != null) {
@@ -83,21 +88,21 @@ public class FavoriteListAdapter extends BaseAdapter {
 				holder.dateTextView.setText(Utility.getDate(milliseconds,
 						birthdayDataModel.getTimezone()));
 			}
-			if (birthdayDataModel.isFavorite()) {
-				holder.starImageView
-						.setImageResource(R.drawable.ic_stat_star_yellow);
-			} else {
-				holder.starImageView.setImageResource(R.drawable.ic_stat_star);
-			}
+			// if (birthdayDataModel.isFavorite()) {
+			// holder.starImageView
+			// .setImageResource(R.drawable.ic_stat_star_yellow);
+			// } else {
+			// holder.starImageView.setImageResource(R.drawable.ic_stat_star);
+			// }
 		}
 		//
-		holder.starImageView.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				handleStarButtonClickEvent(position);
-			}
-		});
+		// holder.starImageView.setOnClickListener(new OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// handleStarButtonClickEvent(position);
+		// }
+		// });
 		return convertView;
 	}
 

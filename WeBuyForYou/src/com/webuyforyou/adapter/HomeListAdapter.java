@@ -10,9 +10,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -72,8 +74,10 @@ public class HomeListAdapter extends SectionAdapter {
 			holder.dateTextView = (TextView) convertView
 					.findViewById(R.id.dateofbirth);
 			holder.imageView = (ImageView) convertView.findViewById(R.id.img);
-			holder.starImageView = (ImageView) convertView
-					.findViewById(R.id.star_imageview);
+			// holder.starImageView = (ImageView) convertView
+			// .findViewById(R.id.star_imageview);
+			holder.checkboxView = (CheckBox) convertView
+					.findViewById(R.id.checkbox_view);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -90,20 +94,31 @@ public class HomeListAdapter extends SectionAdapter {
 						birthdayDataModel.getTimezone()));
 			}
 			if (birthdayDataModel.isFavorite()) {
-				holder.starImageView
-						.setImageResource(R.drawable.ic_stat_star_yellow);
+				holder.checkboxView.setChecked(true);
+				// holder.starImageView
+				// .setImageResource(R.drawable.ic_stat_star_yellow);
 			} else {
-				holder.starImageView.setImageResource(R.drawable.ic_stat_star);
+				holder.checkboxView.setChecked(false);
+				// holder.starImageView.setImageResource(R.drawable.ic_stat_star);
 			}
 		}
-		//
-		holder.starImageView.setOnClickListener(new OnClickListener() {
-
+		
+		holder.checkboxView.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
 			@Override
-			public void onClick(View v) {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				buttonView.setChecked(isChecked);
 				handleStarButtonClickEvent(section, row);
 			}
 		});
+		//
+		// holder.starImageView.setOnClickListener(new OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// handleStarButtonClickEvent(section, row);
+		// }
+		// });
 		return convertView;
 	}
 
@@ -186,12 +201,13 @@ public class HomeListAdapter extends SectionAdapter {
 	}
 
 	public static class ViewHolder {
-		public ImageView starImageView;
+		// public ImageView starImageView;
 		public ImageView imageView;
 		public TextView dateTextView;
 		public TextView nameTextView;
 		public TextView sectionHeaderTextView;
 		public TextView textView;
+		public CheckBox checkboxView;
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package com.webuyforyou.preference;
 
-
 /**
  * 
  * This class contains all the preference keys..
@@ -14,6 +13,10 @@ public final class SharedKeyPreference {
 	 * Preferences keys
 	 * 
 	 */
+	public static final String PREF_KEY_LINKEDIN_ACCESS_TOKEN = "linkedin_access_token";
+
+	public static final String PREF_KEY_LINKEDIN_ACCESS_SECRET = "linkedin_access_secret";
+
 	// public static final String PREF_KEY_REMAINDER_DAY = BaseApplication
 	// .getApplication().getString(
 	// R.string.pref_key_remainder_days_preference);
@@ -39,5 +42,6 @@ public final class SharedKeyPreference {
 	// public static final String PREF_KEY_BDAY_SPINNER_POS =
 	// "PREF_KEY_BDAY_SPINNER_POS";
 	//
-	// public static final String PREF_KEY_DAY_SPINNER_POS = "PREF_KEY_DAY_SPINNER_POS";
+	// public static final String PREF_KEY_DAY_SPINNER_POS =
+	// "PREF_KEY_DAY_SPINNER_POS";
 }
