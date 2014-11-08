@@ -7,20 +7,20 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="200dp"
-        android:padding="8dp" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Would you like to consult us for send gifts" />
-
-    <!--  -->
+        android:src="@android:drawable/picture_frame" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="8dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/consult_us_to_buy_a_gift"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -95,6 +95,39 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#424242" >
             </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/call_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight=".5"
+                android:background="#96D865"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Call"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000" />
+
+            <Button
+                android:id="@+id/website_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight=".5"
+                android:background="#850"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Web"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000" />
         </LinearLayout>
     </LinearLayout>
 

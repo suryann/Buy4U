@@ -34,4 +34,19 @@
         android:layout_height="1dp"
         android:background="#bdc3c7" />
 
+    <TextView
+        android:id="@+id/calander_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ecf0f1"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:text="@string/import_from_calendar"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#bdc3c7" />
+
 </LinearLayout>

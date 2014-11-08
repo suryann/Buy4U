@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -142,10 +143,13 @@ public class MainActivity extends BaseActivity implements DataCallbacks {
 	 * 
 	 */
 	private void handleAboutButtonSubmit() {
-		Bundle bundle = new Bundle();
-		bundle.putString(Constants.WEB_VIEW_URL, Constants.ABOUT_URL);
-		ActivityController.INSTANCE.launchActivity(MainActivity.this,
-				WebViewActivity.class, bundle);
+		// Bundle bundle = new Bundle();
+		// bundle.putString(Constants.WEB_VIEW_URL, Constants.ABOUT_URL);
+		// ActivityController.INSTANCE.launchActivity(MainActivity.this,
+		// WebViewActivity.class, bundle);
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+				Uri.parse(Constants.ABOUT_URL));
+		startActivity(browserIntent);
 	}
 
 	/**

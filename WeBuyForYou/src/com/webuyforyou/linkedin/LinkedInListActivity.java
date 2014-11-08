@@ -7,6 +7,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.htmlcleaner.CleanerProperties;
+import org.htmlcleaner.HtmlCleaner;
+import org.htmlcleaner.TagNode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +27,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.webuyforyou.R;
@@ -219,5 +223,39 @@ public class LinkedInListActivity extends BaseActivity {
 			e.printStackTrace();
 		}
 		return response;
+	}
+
+	public String getHomeTitle(String urlStr) throws Exception {
+		// TODO Auto-generated method stub
+		String homeTitle = "";
+
+		HtmlCleaner htmlCleaner = new HtmlCleaner();
+		CleanerProperties props = htmlCleaner.getProperties();
+		props.setAllowHtmlInsideAttributes(false);
+		props.setAllowMultiWordAttributes(true);
+		props.setRecognizeUnicodeChars(true);
+		props.setOmitComments(true);
+
+		URL url = new URL(urlStr);
+		TagNode root = htmlCleaner.clean(url);
+
+		String XPATH_HOME = "//div[@class='']/h1";
+		Object[] homeTitleNode = root.evaluateXPath(XPATH_HOME);
+		if (homeTitleNode.length > 0) {
+			TagNode resultNode = (TagNode) homeTitleNode[0];
+			homeTitle = resultNode.getText().toString();
+		}
+
+		return homeTitle;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		if (id == android.R.id.home) {
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }

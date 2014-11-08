@@ -1,9 +1,12 @@
 package com.webuyforyou.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.webuyforyou.R;
@@ -44,6 +47,21 @@ public class BirthdayDetailsActivity extends BaseActivity {
 			dateTextView.setText(dateString);
 		}
 		descriptionTextView.setText(mBirthdayDataModel.getDescription());
+
+		findViewById(R.id.website_button).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						handleWebsiteButtonSubmit();
+					}
+				});
+	}
+
+	protected void handleWebsiteButtonSubmit() {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+				Uri.parse(Constants.ABOUT_URL));
+		startActivity(browserIntent);
 	}
 
 	@Override

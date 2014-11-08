@@ -22,7 +22,7 @@
     <string name="menu_settings">Settings</string>
     <string name="menu_add">Add</string>
 
-    <string name="title_details">Details</string>
+    <string name="title_details">Event details</string>
     <string name="title_birthdays">Upcoming BirthDays</string>
     <string name="title_settings">Settings</string>
     <string name="you_don_t_have_any_birthday_events_today_">You don\'t have any birthday events today.</string>
@@ -49,5 +49,7 @@
     
     <string name="emailid">webuyforyou7@gmail.com</string>
     <string name="password">yaminivb4u</string>
+    <string name="consult_us_to_buy_a_gift">Consult us to Buy a Gift</string>
+    <string name="import_from_calendar">Import from calendar</string>
     
 </resources>
