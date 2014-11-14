@@ -1,7 +1,9 @@
 package com.webuyforyou.linkedin;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -138,7 +140,7 @@ public class LinkedInListActivity extends BaseActivity {
 
 									if (i == 0) {
 										String birthday = readPublicUrl(publicUrl);
-										if (Constants.DEBUG) {
+										if (Constants.DEBUG) { 
 											Log.d(TAG, "Read web page: "
 													+ birthday);
 										}
@@ -199,13 +201,13 @@ public class LinkedInListActivity extends BaseActivity {
 			con.setRequestProperty("Content-Type", "text/html");
 			InputStream inputStream = con.getInputStream();
 
-			// /* Read webpage coontent */
-			// BufferedReader in = new BufferedReader(new InputStreamReader(
-			// con.getInputStream()));
-			// /* Read line by line */
-			// while ((inputLine = in.readLine()) != null) {
-			// System.out.println(inputLine);
-			// }
+			 /* Read webpage coontent */
+			 BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			 /* Read line by line */
+			 String inputLine;
+			 while ((inputLine = in.readLine()) != null) {
+			 System.out.println(inputLine);
+			 }
 
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			int ch = -1;
